@@ -1,1 +1,1 @@
-https://track.pstmrk.it/3s/www.hackerrank.com%2Ftests%2F1cmtpl62ln8%2Flogin%3Fb%3DeyJ1c2VybmFtZSI6ImphbmVzaHdhcmNob3dkaGFyeTI4NUBnbWFpbC5jb20iLCJwYXNzd29yZCI6ImY4NTM2NzgyIiwiaGlkZSI6dHJ1ZSwiYWNjb21tb2RhdGlvbnMiOnsiYWRkaXRpb25hbF90aW1lX3BlcmNlbnQiOjB9fQ%3D%3D/EDcI/80rEAQ/AQ/9603dd09-ca64-4f9f-b73c-e350643aa613/2/3Y3miQOjUk
+https://teams.microsoft.com/l/meetup-join/19%3ameeting_YjkxMzlmZTYtOWQ5NS00MTE1LWJiMWUtZGMzY2M3NzYwOWIy%40thread.v2/0?context=%7b%22Tid%22%3a%2240fc6179-cf92-4f92-9433-e720ff626f56%22%2c%22Oid%22%3a%22a5b72f4d-1a81-4985-82bb-bbc35ebe8f34%22%7d
