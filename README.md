@@ -323,4 +323,7 @@ MongoDB (engine/mongodb_helper.py)
 
 agent/sync_smartsheet_markdown.py (standalone cron/job)
   ──► Smartsheet workspace ──► MongoDB (stores markdown summaries for LLM context)
+
+https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-single-sign-on/authorizing-a-personal-access-token-for-use-with-single-sign-on?utm_source=chatgpt.com
+
 ```
