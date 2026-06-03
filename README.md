@@ -1,9 +1,20 @@
-INFO:     Application startup complete.
-Failed to connect to MongoDB: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a2015ab601399eb73af926a, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-MongoDB portfolio summary unavailable: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a2015ab601399eb73af926a, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/./modules.json
-Retrying in 1s [Retry 1/5].
-Failed to load vector store: Cannot send a request, as the client has been closed.
-[LLM] Groq failed: Connection error.
-[LLM] Falling back to LocalFallback after provider failures.
-INFO:     127.0.0.1:50140 - "POST /llm HTTP/1.1" 200 OK
+Hi [Name],
+
+I hope you are doing well.
+
+I am currently working on enhancing the Forge platform by integrating an AI-powered knowledge assistant capability. The implementation is already functional in local/testing mode, and the retrieval pipeline along with the modular LLM architecture has been completed successfully.
+
+At the moment, I have been using temporary external providers for testing purposes. However, for the intended enterprise deployment, the system is designed to use the company’s Azure OpenAI setup.
+
+Could you please help provide the required Azure OpenAI credentials/configuration details for integration? Specifically, I would need access/details related to:
+
+* Azure OpenAI endpoint/API base
+* Deployment name/model
+* Client ID / authentication details (if applicable)
+* Any required environment configuration
+
+The purpose is to connect the existing AI assistant layer with the enterprise-approved Azure OpenAI environment so the chatbot can generate production-grade responses using company infrastructure.
+
+Please let me know if there is any approval process or additional information required from my side.
+
+Thank you.
