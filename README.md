@@ -1,1 +1,5 @@
-GROQ_API_KEY=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
+cd /Users/janeshwarchowdhary/Desktop/g
+python3 -m uvicorn app.routes:app --host 127.0.0.1 --port 8000 --reload
+
+cd /Users/janeshwarchowdhary/Desktop/g
+PYTHONPATH=. streamlit run app/app.py
