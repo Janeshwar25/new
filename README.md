@@ -1,6 +1,6 @@
-cd Desktop\g
-py -m uvicorn app.routes:app --host 127.0.0.1 --port 8000 --reload
-
-cd Desktop\g
-set PYTHONPATH=.
-py -m streamlit run app/app.py
+LLM_GATEWAY_CLIENT_ID=
+LLM_GATEWAY_CLIENT_SECRET=
+LLM_GATEWAY_PROJECT_ID=
+LLM_GATEWAY_TOKEN_URL=
+LLM_GATEWAY_SCOPE=
+LLM_GATEWAY_BASE_URL=
