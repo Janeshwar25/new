@@ -1,205 +1,427 @@
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+import os
+import logging
+import time
+from typing import Any, Dict, List, Optional
 
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+import requests
+from langchain_core.messages import BaseMessage
 
-PS C:\Users\jchowdha> cd Desktop/g
-PS C:\Users\jchowdha\Desktop\g> py -m uvicorn app.routes:app --host 127.0.0.1 --port 8000 --reload
-INFO:     Will watch for changes in these directories: ['C:\\Users\\jchowdha\\Desktop\\g']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [4700] using StatReload
-INFO:     Started server process [13920]
-INFO:     Waiting for application startup.
-'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/./modules.json
-Retrying in 1s [Retry 1/5].
-[KB] Indexing failed: Cannot send a request, as the client has been closed.
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\knowledge_base_indexer.py", line 144, in ensure_knowledge_base_index
-    ok = add_documents_to_store(all_chunks, cfg)
-  File "C:\Users\jchowdha\Desktop\g\agent\vector_store.py", line 35, in add_documents_to_store
-    embeddings = get_embedding_model(config)
-  File "C:\Users\jchowdha\Desktop\g\agent\embedding_service.py", line 4, in get_embedding_model
-    return HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_huggingface\embeddings\huggingface.py", line 97, in __init__
-    self._client = model_cls(
-                   ~~~~~~~~~^
-        self.model_name, cache_folder=self.cache_folder, **self.model_kwargs
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\decorators.py", line 41, in wrapper
-    return func(*args, **kwargs)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\sentence_transformer\model.py", line 184, in __init__
-    super().__init__(
-    ~~~~~~~~~~~~~~~~^
-        model_name_or_path=model_name_or_path,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ...<13 lines>...
-        default_prompt_name=default_prompt_name,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 204, in __init__
-    modules, self.module_kwargs = self._load_modules(
-                                  ~~~~~~~~~~~~~~~~~~^
-        model_name_or_path,
-        ^^^^^^^^^^^^^^^^^^^
-    ...<7 lines>...
-        config_kwargs=config_kwargs,
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 972, in _load_modules
-    modules_json_path = load_file_path(
-        model_name_or_path,
-    ...<4 lines>...
-        local_files_only=local_files_only,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\file_io.py", line 116, in load_file_path
-    return hf_hub_download(
-        model_name_or_path,
-    ...<6 lines>...
-        local_files_only=local_files_only,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
-    return fn(*args, **kwargs)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1010, in hf_hub_download
-    return _hf_hub_download_to_cache_dir(
-        # Destination
-    ...<15 lines>...
-        dry_run=dry_run,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1143, in _hf_hub_download_to_cache_dir
-    _get_metadata_or_catch_error(
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-        repo_id=repo_id,
-        ^^^^^^^^^^^^^^^^
-    ...<10 lines>...
-        retry_on_errors=True,
-        ^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1682, in _get_metadata_or_catch_error
-    metadata = get_hf_file_metadata(
-        url=url,
-    ...<4 lines>...
-        retry_on_errors=retry_on_errors,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
-    return fn(*args, **kwargs)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1604, in get_hf_file_metadata
-    response = _httpx_follow_relative_redirects_with_backoff(
-        method="HEAD", url=url, headers=hf_headers, timeout=timeout, retry_on_errors=retry_on_errors
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 685, in _httpx_follow_relative_redirects_with_backoff
-    response = http_backoff(
-        method=method,
-    ...<3 lines>...
-        **no_retry_kwargs,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 559, in http_backoff
-    return next(
-        _http_backoff_base(
-    ...<9 lines>...
+logger = logging.getLogger(__name__)
+
+
+class TokenCache:
+    """Thread-safe token caching with automatic expiry refresh."""
+
+    def __init__(self):
+        self._token: Optional[str] = None
+        self._expires_at: float = 0
+        self._buffer_seconds: int = 300
+
+    def get(self) -> Optional[str]:
+        if self._token and time.time() < (
+            self._expires_at - self._buffer_seconds
+        ):
+            return self._token
+        return None
+
+    def set(self, token: str, expires_in: int) -> None:
+        self._token = token
+        self._expires_at = time.time() + expires_in
+
+    def clear(self) -> None:
+        self._token = None
+        self._expires_at = 0
+
+
+class EnterpriseLLMClient:
+
+    def __init__(self, config: Any):
+
+        self.config = config
+
+        self.client_id = getattr(
+            config,
+            "LLM_GATEWAY_CLIENT_ID",
+            ""
         )
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 467, in _http_backoff_base
-    response = client.request(method=method, url=url, **kwargs)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 825, in request
-    return self.send(request, auth=auth, follow_redirects=follow_redirects)
-           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 901, in send
-    raise RuntimeError("Cannot send a request, as the client has been closed.")
-RuntimeError: Cannot send a request, as the client has been closed.
-INFO:     Application startup complete.
-Failed to connect to MongoDB: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a240dff9b50a6f9e7dcfdd7, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-MongoDB portfolio summary unavailable: localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 5.0s, Topology Description: <TopologyDescription id: 6a240dff9b50a6f9e7dcfdd7, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [WinError 10061] No connection could be made because the target machine actively refused it (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
-'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/./modules.json
-Retrying in 1s [Retry 1/5].
-Failed to load vector store: Cannot send a request, as the client has been closed.
-[Enterprise] Unexpected error in enterprise provider
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\providers\enterprise_provider.py", line 75, in generate_rag_response
-    response = client.generate_response(
-               ^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'EnterpriseLLMClient' object has no attribute 'generate_response'
-🔴 ENTERPRISE LLM GATEWAY FAILED 🔴
-Error: Enterprise LLM unexpected error: 'EnterpriseLLMClient' object has no attribute 'generate_response'
 
-STRICT ENTERPRISE-ONLY MODE:
-  ✗ No fallback providers available
-  ✗ No public LLMs allowed
-  ✗ No automatic switching
+        self.client_secret = getattr(
+            config,
+            "LLM_GATEWAY_CLIENT_SECRET",
+            ""
+        )
 
-ACTION REQUIRED:
-  1. Check enterprise gateway connectivity
-  2. Verify OAuth2 credentials
-  3. Review gateway logs
-  4. Contact IT/DevOps
+        self.project_id = getattr(
+            config,
+            "LLM_GATEWAY_PROJECT_ID",
+            ""
+        )
 
-Enterprise LLM Gateway exception:
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\providers\enterprise_provider.py", line 75, in generate_rag_response
-    response = client.generate_response(
-               ^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'EnterpriseLLMClient' object has no attribute 'generate_response'
+        self.token_url = getattr(
+            config,
+            "LLM_GATEWAY_TOKEN_URL",
+            ""
+        )
 
-During handling of the above exception, another exception occurred:
+        self.scope = getattr(
+            config,
+            "LLM_GATEWAY_SCOPE",
+            "api"
+        )
 
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\llm_manager.py", line 144, in answer_query
-    content = enterprise_provider.generate_rag_response(
-        messages,
-        config=self.config,
-        temperature=0.1
-    )
-  File "C:\Users\jchowdha\Desktop\g\agent\providers\enterprise_provider.py", line 92, in generate_rag_response
-    raise RuntimeError(f"Enterprise LLM unexpected error: {str(e)}")
-RuntimeError: Enterprise LLM unexpected error: 'EnterpriseLLMClient' object has no attribute 'generate_response'
-🔴 ENTERPRISE LLM GATEWAY FAILED - NO FALLBACK AVAILABLE
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\providers\enterprise_provider.py", line 75, in generate_rag_response
-    response = client.generate_response(
-               ^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'EnterpriseLLMClient' object has no attribute 'generate_response'
+        self.base_url = getattr(
+            config,
+            "LLM_GATEWAY_BASE_URL",
+            ""
+        )
 
-During handling of the above exception, another exception occurred:
+        self.model_name = getattr(
+            config,
+            "LLM_GATEWAY_MODEL_NAME",
+            "enterprise-llm"
+        )
 
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\agent\llm_manager.py", line 144, in answer_query
-    content = enterprise_provider.generate_rag_response(
-        messages,
-        config=self.config,
-        temperature=0.1
-    )
-  File "C:\Users\jchowdha\Desktop\g\agent\providers\enterprise_provider.py", line 92, in generate_rag_response
-    raise RuntimeError(f"Enterprise LLM unexpected error: {str(e)}")
-RuntimeError: Enterprise LLM unexpected error: 'EnterpriseLLMClient' object has no attribute 'generate_response'
+        self.request_timeout = int(
+            getattr(config, "REQUEST_TIMEOUT", "180")
+        )
 
-During handling of the above exception, another exception occurred:
+        self.verify_ssl = getattr(
+            config,
+            "VERIFY_SSL",
+            False
+        )
 
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\Desktop\g\app\routes.py", line 129, in help_bot_llm
-    result = bot.answer(
-        query=query,
-        chat_history=chat_history,
-        portfolio_filter=portfolio_filter,
-    )
-  File "C:\Users\jchowdha\Desktop\g\agent\chatbot.py", line 105, in answer
-    return self.llm_manager.answer_query(
-           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
-         query=query,
-         ^^^^^^^^^^^^
-    ...<2 lines>...
-         sources_used=rag_result.sources_used
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-  File "C:\Users\jchowdha\Desktop\g\agent\llm_manager.py", line 179, in answer_query
-    raise RuntimeError(
-        f"Enterprise LLM Gateway failed. No fallback available. {str(e)}"
-    )
-RuntimeError: Enterprise LLM Gateway failed. No fallback available. Enterprise LLM unexpected error: 'EnterpriseLLMClient' object has no attribute 'generate_response'
-INFO:     127.0.0.1:59898 - "POST /llm HTTP/1.1" 503 Service Unavailable
+        self.max_retries = 3
+        self.retry_delay = 1
+
+        self._token_cache = TokenCache()
+
+        logger.info("🔒 ENTERPRISE LLM CLIENT INITIALIZED")
+        logger.info("Gateway URL: %s", self.base_url)
+
+    def _get_access_token(self) -> str:
+
+        cached = self._token_cache.get()
+
+        if cached:
+            return cached
+
+        payload = {
+            "grant_type": "client_credentials",
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            "scope": self.scope,
+        }
+
+        headers = {
+            "Content-Type":
+            "application/x-www-form-urlencoded"
+        }
+
+        response = requests.post(
+            self.token_url,
+            data=payload,
+            headers=headers,
+            timeout=self.request_timeout,
+            verify=self.verify_ssl,
+        )
+
+        if response.status_code != 200:
+            raise RuntimeError(
+                f"Token request failed: "
+                f"{response.status_code} - "
+                f"{response.text}"
+            )
+
+        data = response.json()
+
+        token = data.get("access_token")
+
+        if not token:
+            raise RuntimeError(
+                "No access token returned"
+            )
+
+        expires_in = data.get("expires_in", 3600)
+
+        self._token_cache.set(
+            token,
+            expires_in
+        )
+
+        return token
+
+    def _build_inference_payload(
+        self,
+        prompt: str
+    ) -> Dict[str, Any]:
+
+        return {
+            "model": self.model_name,
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ],
+            "temperature": 0.1,
+            "max_tokens": 2048,
+        }
+
+    def _messages_to_prompt(
+        self,
+        messages: List[BaseMessage]
+    ) -> str:
+
+        parts: List[str] = []
+
+        for msg in messages:
+
+            msg_type = (
+                getattr(msg, "type", None)
+                or msg.__class__.__name__
+            )
+
+            content = getattr(msg, "content", "")
+
+            if not content:
+                continue
+
+            if msg_type.lower().startswith("system"):
+                parts.append(
+                    f"SYSTEM:\n{content}"
+                )
+
+            elif msg_type.lower().startswith("human"):
+                parts.append(
+                    f"USER:\n{content}"
+                )
+
+            elif msg_type.lower().startswith("ai"):
+                parts.append(
+                    f"ASSISTANT:\n{content}"
+                )
+
+            else:
+                parts.append(str(content))
+
+        return "\n\n".join(parts).strip()
+
+    def _send_request(self, prompt: str) -> str:
+
+        token = self._get_access_token()
+
+        payload = self._build_inference_payload(
+            prompt
+        )
+
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+
+            "X-Project-ID": self.project_id,
+            "x-project-id": self.project_id,
+            "project-id": self.project_id,
+
+            "X-Client-ID": self.client_id,
+            "x-client-id": self.client_id,
+            "client-id": self.client_id,
+        }
+
+        safe_headers = {}
+
+        for k, v in headers.items():
+
+            if (
+                "auth" in k.lower()
+                or "token" in k.lower()
+            ):
+                safe_headers[k] = "***MASKED***"
+
+            else:
+                safe_headers[k] = v
+
+        print("\n===== ENTERPRISE REQUEST =====")
+        print("URL:", self.base_url)
+        print("HEADERS:", safe_headers)
+        print("PAYLOAD:", payload)
+        print("==============================\n")
+
+        for attempt in range(self.max_retries):
+
+            try:
+
+                response = requests.post(
+                    self.base_url,
+                    json=payload,
+                    headers=headers,
+                    timeout=self.request_timeout,
+                    verify=self.verify_ssl,
+                )
+
+                print("STATUS:", response.status_code)
+                print(
+                    "RESPONSE:",
+                    response.text[:1000]
+                )
+
+                if response.status_code == 200:
+
+                    data = response.json()
+
+                    result = (
+                        data.get("response")
+                        or data.get("text")
+                        or data.get("output")
+                        or data.get(
+                            "choices",
+                            [{}]
+                        )[0].get(
+                            "message",
+                            {}
+                        ).get(
+                            "content"
+                        )
+                    )
+
+                    if not result:
+                        raise RuntimeError(
+                            "No response content"
+                        )
+
+                    return str(result).strip()
+
+                if response.status_code == 429:
+
+                    delay = (
+                        self.retry_delay
+                        * (2 ** attempt)
+                    )
+
+                    time.sleep(delay)
+
+                    continue
+
+                raise RuntimeError(
+                    f"LLM request failed: "
+                    f"{response.status_code} - "
+                    f"{response.text[:1000]}"
+                )
+
+            except requests.exceptions.Timeout:
+
+                if attempt < self.max_retries - 1:
+
+                    delay = (
+                        self.retry_delay
+                        * (2 ** attempt)
+                    )
+
+                    time.sleep(delay)
+
+                    continue
+
+                raise RuntimeError(
+                    "Request timeout"
+                )
+
+            except requests.exceptions.ConnectionError as e:
+
+                if attempt < self.max_retries - 1:
+
+                    delay = (
+                        self.retry_delay
+                        * (2 ** attempt)
+                    )
+
+                    time.sleep(delay)
+
+                    continue
+
+                raise RuntimeError(
+                    f"Connection failed: {str(e)}"
+                )
+
+        raise RuntimeError(
+            "Enterprise gateway failed"
+        )
+
+    def generate_response(
+        self,
+        prompt: Optional[str] = None,
+        messages: Optional[
+            List[BaseMessage]
+        ] = None,
+        context: Optional[str] = None,
+    ) -> str:
+
+        MOCK_MODE = os.getenv(
+            "ENTERPRISE_MOCK_MODE",
+            "false"
+        ).lower() == "true"
+
+        if MOCK_MODE:
+            return (
+                "✅ Enterprise mock "
+                "response successful"
+            )
+
+        if messages:
+
+            complete_prompt = (
+                self._messages_to_prompt(
+                    messages
+                )
+            )
+
+        elif prompt:
+
+            complete_prompt = prompt
+
+        else:
+
+            raise ValueError(
+                "Either prompt or "
+                "messages required"
+            )
+
+        if (
+            not complete_prompt
+            or not complete_prompt.strip()
+        ):
+            raise ValueError(
+                "Prompt cannot be empty"
+            )
+
+        logger.info(
+            "🔐 INITIATING ENTERPRISE "
+            "LLM INFERENCE"
+        )
+
+        result = self._send_request(
+            complete_prompt
+        )
+
+        logger.info(
+            "✅ ENTERPRISE INFERENCE COMPLETE"
+        )
+
+        return result
+
+    def is_available(self) -> bool:
+
+        try:
+
+            token = self._get_access_token()
+
+            return bool(token)
+
+        except Exception as e:
+
+            logger.warning(
+                "Gateway unavailable: %s",
+                str(e)
+            )
+
+            return False
