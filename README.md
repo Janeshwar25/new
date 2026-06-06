@@ -1,21 +1,23 @@
-Hi Rahil,
+$headers = @{
+    Authorization = "Bearer $token"
+    access_token = $token
+    "x-access-token" = $token
+    "Content-Type" = "application/json"
+    "X-Project-ID" = "3fccc5df-159d-47a0-b42d-4d1e49897153"
+}
 
-I validated the OAuth flow and gateway connectivity successfully.
+$body = @{
+    messages = @(
+        @{
+            role = "user"
+            content = "hello"
+        }
+    )
+    temperature = 0.1
+    max_tokens = 100
+} | ConvertTo-Json -Depth 10
 
-The gateway now accepts the token/auth headers, but inference requests are failing with:
-
-"Object reference not set to an instance of an object"
-
-This appears to be occurring inside the gateway/model routing layer.
-
-Could you please confirm:
-
-* supported model names
-* required payload schema
-* whether the project is mapped to an active model deployment
-* any additional required headers
-
-Current endpoint:
-https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/
-
-Thanks!
+Invoke-RestMethod -Method Post `
+-Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions" `
+-Headers $headers `
+-Body $body
