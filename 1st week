@@ -6,3 +6,10 @@ def get_embedding_model(config=None):
     )
 
 pip install -U langchain-huggingface
+
+MOCK_MODE = os.getenv("ENTERPRISE_MOCK_MODE", "false").lower() == "true"
+
+if MOCK_MODE:
+    return {
+        "response": "✅ Enterprise mock response successful"
+    }
