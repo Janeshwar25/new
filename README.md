@@ -1,12 +1,23 @@
-$body = @{
-    grant_type    = "client_credentials"
-    client_id     = "YOUR_CLIENT_ID"
-    client_secret = "YOUR_CLIENT_SECRET"
-    scope         = "https://api.uhg.com/.default"
+$token = "PASTE_ACCESS_TOKEN"
+
+$headers = @{
+    Authorization = "Bearer $token"
+    "Content-Type" = "application/json"
+    "X-Project-ID" = "YOUR_PROJECT_ID"
 }
+
+$body = @{
+    model = "enterprise-llm"
+    messages = @(
+        @{
+            role = "user"
+            content = "hello"
+        }
+    )
+} | ConvertTo-Json -Depth 10
 
 Invoke-RestMethod `
     -Method Post `
-    -Uri "https://api.uhg.com/oauth2/token" `
-    -Body $body `
-    -ContentType "application/x-www-form-urlencoded"
+    -Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/" `
+    -Headers $headers `
+    -Body $body
