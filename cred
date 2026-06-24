@@ -40,3 +40,57 @@ Could you please confirm:
 4. Is there a sample curl request that is known to work?
 
 Thanks.
+
+hi Janeshwar, here is an example request:
+ 
+{
+
+    "event_type": "before_model_event",
+
+    "timestamp": "2026-06-23T21:37:08.583436+00:00",
+    "model": "azure/gpt-5.4_2026-03-05",
+
+    "session_id": "999e89da-a801-42b8-81d6-a31ce2f8f306",
+
+    "state": {
+
+        "section": "analyze_pmat_agent_tab",
+
+        "user_name": "local-dev-user",
+
+        "pmat_id": "local-dev-user",
+
+        "project_scope": "all"
+
+    },
+
+    "request_context": [
+
+        {
+
+            "parts": [
+
+                {
+
+                    "text": [
+
+                        "hey"
+
+                    ],
+
+                    "role": "user"
+
+                }
+
+            ]
+
+        }
+
+    ]
+
+}
+ 
+ 
+ 
+also yeah that project ID should be right. maybe you need to change the model name to the 5.4 and use the newer date
+ 
