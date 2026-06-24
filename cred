@@ -94,3 +94,44 @@ hi Janeshwar, here is an example request:
  
 also yeah that project ID should be right. maybe you need to change the model name to the 5.4 and use the newer date
  
+
+
+
+Hi Rahil,
+
+I added detailed request logging and verified the request reaching the gateway.
+
+Current request:
+
+URL:
+https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview
+
+Headers include:
+
+* projectId: 3fccc5df-159d-47a0-b42d-4d1e49897153
+* X-Project-Id: 3fccc5df-159d-47a0-b42d-4d1e49897153
+
+Payload:
+
+{
+"event_type": "before_model_event",
+"model": "azure/gpt-5.4_2026-03-05",
+"deploymentName": "azure/gpt-5.4_2026-03-05",
+...
+}
+
+OAuth authentication succeeds and the request reaches the gateway.
+
+However the response is still:
+
+403 Authorization failed. Verify that the deploymentName, modelName are correct.
+
+Can you please confirm the exact deployment name that should be used for project ID:
+
+3fccc5df-159d-47a0-b42d-4d1e49897153
+
+and whether this project currently has access to GPT-5.4?
+
+Also, is `/chat/completions` the correct endpoint for this payload schema?
+
+Thanks.
