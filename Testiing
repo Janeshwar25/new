@@ -1,52 +1,17 @@
-cd ~/Desktop/f
+LLM_GATEWAY_CLIENT_ID=81c9cb4e-5813-4bcb-a9ae-a67657265b4c
+LLM_GATEWAY_CLIENT_SECRET=73fJpQAlrRLbwxNoDlggaHzp0PV7zj232Oa
+LLM_GATEWAY_PROJECT_ID=3fccc5df-159d-47a0-b42d-4d1e49897153
 
-source credentials.env
+LLM_GATEWAY_TOKEN_URL=https://api.uhg.com/oauth2/token
+LLM_GATEWAY_SCOPE=https://api.uhg.com/.default
 
+LLM_GATEWAY_BASE_URL=https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0
 
+LLM_GATEWAY_MODEL_NAME=azure/gpt-5.4_2026-03-05
+LLM_GATEWAY_REASONING_MODEL_NAME=azure/gpt-5.4_2026-03-05
 
-jq --version
+LLM_GATEWAY_API_VERSION=2025-01-01-preview
+LLM_GATEWAY_INFERENCE_PATH=chat/completions
 
-
-
-TOKEN=$(curl -sS -X POST "https://api.uhg.com/oauth2/token" \
--H "Content-Type: application/x-www-form-urlencoded" \
---data-urlencode "grant_type=client_credentials" \
---data-urlencode "client_id=$LLM_GATEWAY_CLIENT_ID" \
---data-urlencode "client_secret=$LLM_GATEWAY_CLIENT_SECRET" \
---data-urlencode "scope=https://api.uhg.com/.default" | jq -r '.access_token')
-
-
-
-
-
-echo ${TOKEN:0:40}
-
-
-
-
-curl -i -sS -X POST \
-"https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview" \
--H "Authorization: Bearer $TOKEN" \
--H "Content-Type: application/json" \
--H "projectId: 3fccc5df-159d-47a0-b42d-4d1e49897153" \
--H "X-Project-Id: 3fccc5df-159d-47a0-b42d-4d1e49897153" \
--d '{
-  "model": "azure/gpt-5.4_2026-03-05",
-  "messages": [
-    {
-      "role":"system",
-      "content":"You are a concise assistant."
-    },
-    {
-      "role":"user",
-      "content":"Reply with exactly: gateway connectivity test ok"
-    }
-  ],
-  "temperature": 0,
-  "max_tokens": 32,
-  "stream": false
-}'
-
-
-
-
+LLM_GATEWAY_TRACE_REQUESTS=true
+LLM_GATEWAY_REQUEST_TIMEOUT=60
