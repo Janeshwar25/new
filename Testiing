@@ -1,60 +1,49 @@
-PS C:\Users\jchowdha\Desktop\g> Get-Content .\credentials.env | ForEach-Object {
->>     if ($_ -match "^\s*#") { return }
->>     if ($_ -match "^\s*$") { return }
->>     $name,$value = $_ -split "=",2
->>     [Environment]::SetEnvironmentVariable($name,$value)
->>     Set-Item -Path "Env:$name" -Value $value
->> }
-PS C:\Users\jchowdha\Desktop\g> $body = @{
->>     grant_type    = "client_credentials"
->>     client_id     = $env:LLM_GATEWAY_CLIENT_ID
->>     client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
->>     scope         = "https://api.uhg.com/.default"
->> }
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> $token = (Invoke-RestMethod `
->>     -Method Post `
->>     -Uri "https://api.uhg.com/oauth2/token" `
->>     -ContentType "application/x-www-form-urlencoded" `
->>     -Body $body).access_token
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> $token.Substring(0,40)
-eyJraWQiOiJSdjd2VG9aeE1zNWRTMXBZbUJnRmlL
-PS C:\Users\jchowdha\Desktop\g> $headers = @{
->>     Authorization = "Bearer $token"
->>     "Content-Type" = "application/json"
->>     projectId = "3fccc5df-159d-47a0-b42d-4d1e49897153"
->>     "X-Project-Id" = "3fccc5df-159d-47a0-b42d-4d1e49897153"
->> }
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> $body = @{
->>     model = "azure/gpt-5.4_2026-03-05"
->>     messages = @(
->>         @{
->>             role = "system"
->>             content = "You are a concise assistant."
->>         },
->>         @{
->>             role = "user"
->>             content = "Reply with exactly: gateway connectivity test ok"
->>         }
->>     )
->>     temperature = 0
->>     max_tokens = 32
->>     stream = $false
->> } | ConvertTo-Json -Depth 10
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> Invoke-RestMethod `
->>     -Method Post `
->>     -Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview" `
->>     -Headers $headers `
->>     -Body $body
-Invoke-RestMethod : {"detail":{"code":403,"message":"Authorization failed. Verify that the deploymentName, modelName
-are correct."}}
-At line:1 char:1
-+ Invoke-RestMethod `
-+ ~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-RestMethod], WebExc
-   eption
-    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeRestMethodCommand
-PS C:\Users\jchowdha\Desktop\g>
+Hi Rahil,
+
+I completed the test exactly as suggested.
+
+I tested the same request from:
+
+* macOS using curl
+* Windows (office laptop) using Invoke-RestMethod
+* Our Python application
+
+In all three cases:
+
+* OAuth token generation succeeds.
+* The endpoint is reachable.
+* The projectId and X-Project-Id headers are present.
+* The request body uses:
+
+```json
+{
+  "model": "azure/gpt-5.4_2026-03-05",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a concise assistant."
+    },
+    {
+      "role": "user",
+      "content": "Reply with exactly: gateway connectivity test ok"
+    }
+  ]
+}
+```
+
+The response is consistently:
+
+```
+HTTP 403
+Authorization failed. Verify that the deploymentName, modelName are correct.
+```
+
+Since the same request fails from curl, PowerShell, and the application, it doesn't appear to be an application or environment issue.
+
+Could you please verify:
+
+1. Is `azure/gpt-5.4_2026-03-05` the exact value that should be used in the `model` field?
+2. Is there a separate deployment name that should be used instead?
+3. Does project `3fccc5df-159d-47a0-b42d-4d1e49897153` currently have access to this deployment?
+
+Thanks!
