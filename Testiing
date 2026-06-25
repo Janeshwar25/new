@@ -46,3 +46,48 @@ $token = (Invoke-RestMethod `
     -Body $body).access_token
 
 $token.Substring(0,40)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS C:\Users\jchowdha\Desktop\g> Get-Content .\credentials.env | ForEach-Object {
+>>     if ($_ -match "^\s*#") { return }
+>>     if ($_ -match "^\s*$") { return }
+>>     $name,$value = $_ -split "=",2
+>>     [Environment]::SetEnvironmentVariable($name,$value)
+>>     Set-Item -Path "Env:$name" -Value $value
+>> }
+PS C:\Users\jchowdha\Desktop\g> $body = @{
+>>     grant_type    = "client_credentials"
+>>     client_id     = $env:LLM_GATEWAY_CLIENT_ID
+>>     client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
+>>     scope         = "https://api.uhg.com/.default"
+>> }
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> $token = (Invoke-RestMethod `
+>>     -Method Post `
+>>     -Uri "https://api.uhg.com/oauth2/token" `
+>>     -ContentType "application/x-www-form-urlencoded" `
+>>     -Body $body).access_token
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> $token.Substring(0,40)
