@@ -15,3 +15,34 @@ LLM_GATEWAY_INFERENCE_PATH=chat/completions
 
 LLM_GATEWAY_TRACE_REQUESTS=true
 LLM_GATEWAY_REQUEST_TIMEOUT=60
+
+
+
+
+
+Get-Content .\credentials.env | ForEach-Object {
+    if ($_ -match "^\s*#") { return }
+    if ($_ -match "^\s*$") { return }
+    $name,$value = $_ -split "=",2
+    [Environment]::SetEnvironmentVariable($name,$value)
+    Set-Item -Path "Env:$name" -Value $value
+}
+
+
+
+
+
+$body = @{
+    grant_type    = "client_credentials"
+    client_id     = $env:LLM_GATEWAY_CLIENT_ID
+    client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
+    scope         = "https://api.uhg.com/.default"
+}
+
+$token = (Invoke-RestMethod `
+    -Method Post `
+    -Uri "https://api.uhg.com/oauth2/token" `
+    -ContentType "application/x-www-form-urlencoded" `
+    -Body $body).access_token
+
+$token.Substring(0,40)
