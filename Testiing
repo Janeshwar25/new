@@ -1,101 +1,60 @@
-LLM_GATEWAY_CLIENT_ID=81c9cb4e-5813-4bcb-a9ae-a67657265b4c
-LLM_GATEWAY_CLIENT_SECRET=73fJpQAlrRLbwxNoDlggaHzp0PV7zj232Oa
-LLM_GATEWAY_PROJECT_ID=3fccc5df-159d-47a0-b42d-4d1e49897153
-
-LLM_GATEWAY_TOKEN_URL=https://api.uhg.com/oauth2/token
-LLM_GATEWAY_SCOPE=https://api.uhg.com/.default
-
-LLM_GATEWAY_BASE_URL=https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0
-
-LLM_GATEWAY_MODEL_NAME=azure/gpt-5.4_2026-03-05
-LLM_GATEWAY_REASONING_MODEL_NAME=azure/gpt-5.4_2026-03-05
-
-LLM_GATEWAY_API_VERSION=2025-01-01-preview
-LLM_GATEWAY_INFERENCE_PATH=chat/completions
-
-LLM_GATEWAY_TRACE_REQUESTS=true
-LLM_GATEWAY_REQUEST_TIMEOUT=60
-
-
-
-
-
-Get-Content .\credentials.env | ForEach-Object {
-    if ($_ -match "^\s*#") { return }
-    if ($_ -match "^\s*$") { return }
-    $name,$value = $_ -split "=",2
-    [Environment]::SetEnvironmentVariable($name,$value)
-    Set-Item -Path "Env:$name" -Value $value
-}
-
-
-
-
-
-$body = @{
-    grant_type    = "client_credentials"
-    client_id     = $env:LLM_GATEWAY_CLIENT_ID
-    client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
-    scope         = "https://api.uhg.com/.default"
-}
-
-$token = (Invoke-RestMethod `
-    -Method Post `
-    -Uri "https://api.uhg.com/oauth2/token" `
-    -ContentType "application/x-www-form-urlencoded" `
-    -Body $body).access_token
-
-$token.Substring(0,40)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$headers = @{
-    Authorization = "Bearer $token"
-    "Content-Type" = "application/json"
-    projectId = "3fccc5df-159d-47a0-b42d-4d1e49897153"
-    "X-Project-Id" = "3fccc5df-159d-47a0-b42d-4d1e49897153"
-}
-
-$body = @{
-    model = "azure/gpt-5.4_2026-03-05"
-    messages = @(
-        @{
-            role = "system"
-            content = "You are a concise assistant."
-        },
-        @{
-            role = "user"
-            content = "Reply with exactly: gateway connectivity test ok"
-        }
-    )
-    temperature = 0
-    max_tokens = 32
-    stream = $false
-} | ConvertTo-Json -Depth 10
-
-Invoke-RestMethod `
-    -Method Post `
-    -Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview" `
-    -Headers $headers `
-    -Body $body
+PS C:\Users\jchowdha\Desktop\g> Get-Content .\credentials.env | ForEach-Object {
+>>     if ($_ -match "^\s*#") { return }
+>>     if ($_ -match "^\s*$") { return }
+>>     $name,$value = $_ -split "=",2
+>>     [Environment]::SetEnvironmentVariable($name,$value)
+>>     Set-Item -Path "Env:$name" -Value $value
+>> }
+PS C:\Users\jchowdha\Desktop\g> $body = @{
+>>     grant_type    = "client_credentials"
+>>     client_id     = $env:LLM_GATEWAY_CLIENT_ID
+>>     client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
+>>     scope         = "https://api.uhg.com/.default"
+>> }
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> $token = (Invoke-RestMethod `
+>>     -Method Post `
+>>     -Uri "https://api.uhg.com/oauth2/token" `
+>>     -ContentType "application/x-www-form-urlencoded" `
+>>     -Body $body).access_token
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> $token.Substring(0,40)
+eyJraWQiOiJSdjd2VG9aeE1zNWRTMXBZbUJnRmlL
+PS C:\Users\jchowdha\Desktop\g> $headers = @{
+>>     Authorization = "Bearer $token"
+>>     "Content-Type" = "application/json"
+>>     projectId = "3fccc5df-159d-47a0-b42d-4d1e49897153"
+>>     "X-Project-Id" = "3fccc5df-159d-47a0-b42d-4d1e49897153"
+>> }
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> $body = @{
+>>     model = "azure/gpt-5.4_2026-03-05"
+>>     messages = @(
+>>         @{
+>>             role = "system"
+>>             content = "You are a concise assistant."
+>>         },
+>>         @{
+>>             role = "user"
+>>             content = "Reply with exactly: gateway connectivity test ok"
+>>         }
+>>     )
+>>     temperature = 0
+>>     max_tokens = 32
+>>     stream = $false
+>> } | ConvertTo-Json -Depth 10
+PS C:\Users\jchowdha\Desktop\g>
+PS C:\Users\jchowdha\Desktop\g> Invoke-RestMethod `
+>>     -Method Post `
+>>     -Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview" `
+>>     -Headers $headers `
+>>     -Body $body
+Invoke-RestMethod : {"detail":{"code":403,"message":"Authorization failed. Verify that the deploymentName, modelName
+are correct."}}
+At line:1 char:1
++ Invoke-RestMethod `
++ ~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-RestMethod], WebExc
+   eption
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeRestMethodCommand
+PS C:\Users\jchowdha\Desktop\g>
