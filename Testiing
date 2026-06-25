@@ -70,24 +70,32 @@ $token.Substring(0,40)
 
 
 
-PS C:\Users\jchowdha\Desktop\g> Get-Content .\credentials.env | ForEach-Object {
->>     if ($_ -match "^\s*#") { return }
->>     if ($_ -match "^\s*$") { return }
->>     $name,$value = $_ -split "=",2
->>     [Environment]::SetEnvironmentVariable($name,$value)
->>     Set-Item -Path "Env:$name" -Value $value
->> }
-PS C:\Users\jchowdha\Desktop\g> $body = @{
->>     grant_type    = "client_credentials"
->>     client_id     = $env:LLM_GATEWAY_CLIENT_ID
->>     client_secret = $env:LLM_GATEWAY_CLIENT_SECRET
->>     scope         = "https://api.uhg.com/.default"
->> }
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> $token = (Invoke-RestMethod `
->>     -Method Post `
->>     -Uri "https://api.uhg.com/oauth2/token" `
->>     -ContentType "application/x-www-form-urlencoded" `
->>     -Body $body).access_token
-PS C:\Users\jchowdha\Desktop\g>
-PS C:\Users\jchowdha\Desktop\g> $token.Substring(0,40)
+$headers = @{
+    Authorization = "Bearer $token"
+    "Content-Type" = "application/json"
+    projectId = "3fccc5df-159d-47a0-b42d-4d1e49897153"
+    "X-Project-Id" = "3fccc5df-159d-47a0-b42d-4d1e49897153"
+}
+
+$body = @{
+    model = "azure/gpt-5.4_2026-03-05"
+    messages = @(
+        @{
+            role = "system"
+            content = "You are a concise assistant."
+        },
+        @{
+            role = "user"
+            content = "Reply with exactly: gateway connectivity test ok"
+        }
+    )
+    temperature = 0
+    max_tokens = 32
+    stream = $false
+} | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod `
+    -Method Post `
+    -Uri "https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/chat/completions?api-version=2025-01-01-preview" `
+    -Headers $headers `
+    -Body $body
