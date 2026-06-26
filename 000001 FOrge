@@ -15,3 +15,15 @@ LLM_GATEWAY_INFERENCE_PATH=chat/completions
 
 LLM_GATEWAY_TRACE_REQUESTS=true
 LLM_GATEWAY_REQUEST_TIMEOUT=60
+
+POST /openai/deployments/{deployment}/embeddings?api-version=2023-05-15
+
+but the gateway returns:
+
+403 Authorization failed. Verify that the deploymentName, modelName are correct.
+
+Could you please share:
+
+The correct embedding model name.
+The correct embedding deployment name.
+The correct embeddings endpoint/API version (if different).
