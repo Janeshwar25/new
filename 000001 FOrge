@@ -16,6 +16,16 @@ LLM_GATEWAY_INFERENCE_PATH=chat/completions
 LLM_GATEWAY_TRACE_REQUESTS=true
 LLM_GATEWAY_REQUEST_TIMEOUT=60
 
+
+
+
+
+
+Hi Rahil,
+
+The chat completion integration is now working successfully, but I'm currently blocked on the embedding endpoint for the RAG pipeline.
+
+Could you please confirm the correct embedding model name and embedding deployment name for the Forge project?
 POST /openai/deployments/{deployment}/embeddings?api-version=2023-05-15
 
 but the gateway returns:
