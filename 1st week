@@ -1,151 +1,64 @@
-Windows PowerShell
-Copyright (C) Microsoft Corporation. All rights reserved.
+Hello Team,
 
-Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+🚀 Continuing our Forge Learning Series, this week I'd like to share an exciting and increasingly important topic that is shaping the future of enterprise AI: **AI Agents vs Traditional Chatbots**.
 
-PS C:\Users\jchowdha> cd desktop/g
-PS C:\Users\jchowdha\desktop\g> v
-v : The term 'v' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the
-spelling of the name, or if a path was included, verify that the path is correct and try again.
-At line:1 char:1
-+ v
-+ ~
-    + CategoryInfo          : ObjectNotFound: (v:String) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
+As organizations move beyond simple automation and toward intelligent systems that can assist with complex workflows, understanding this distinction becomes critical for how we design and build solutions within Forge.
 
-PS C:\Users\jchowdha\desktop\g> Case Install
-Case : The term 'Case' is not recognized as the name of a cmdlet, function, script file, or operable program. Check
-the spelling of the name, or if a path was included, verify that the path is correct and try again.
-At line:1 char:1
-+ Case Install
-+ ~~~~
-    + CategoryInfo          : ObjectNotFound: (Case:String) [], CommandNotFoundException
-    + FullyQualifiedErrorId : CommandNotFoundException
+💬 **Traditional Chatbots** are designed primarily to answer questions or provide information based on predefined rules, scripted flows, or the context provided in a prompt. They are reactive in nature—they wait for a user query and respond accordingly. While modern chatbots powered by large language models can generate more natural and context-aware responses, they are still largely limited to single-turn or short multi-turn interactions and do not inherently take initiative or perform actions beyond generating text.
 
-PS C:\Users\jchowdha\desktop\g> py -m uvicorn app.routes:app --host 127.0.0.1 --port 8000 --reload
-INFO:     Will watch for changes in these directories: ['C:\\Users\\jchowdha\\desktop\\g']
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [35716] using StatReload
-INFO:     Started server process [41952]
-INFO:     Waiting for application startup.
-Error loading document ~$Helpful Tools.xlsx: [Errno 13] Permission denied: 'knowledge_base\\~$Helpful Tools.xlsx'
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\desktop\g\agent\document_loader.py", line 47, in load_document
-    excel_data = pd.read_excel(file_path, sheet_name=None)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\pandas\io\excel\_base.py", line 481, in read_excel
-    io = ExcelFile(
-        io,
-    ...<2 lines>...
-        engine_kwargs=engine_kwargs,
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\pandas\io\excel\_base.py", line 1604, in __init__
-    ext = inspect_excel_format(
-        content_or_path=path_or_buffer, storage_options=storage_options
-    )
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\pandas\io\excel\_base.py", line 1452, in inspect_excel_format
-    with get_handle(
-         ~~~~~~~~~~^
-        content_or_path, "rb", storage_options=storage_options, is_text=False
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ) as handle:
-    ^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\pandas\io\common.py", line 939, in get_handle
-    handle = open(handle, ioargs.mode)
-PermissionError: [Errno 13] Permission denied: 'knowledge_base\\~$Helpful Tools.xlsx'
-Embedding API Error!
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway/1.0/openai/deployments/text-embedding-ada-002_2/embeddings?api-version=2023-05-15
-HTTP Status: 403
-Deployment Name: text-embedding-ada-002_2
-Model Name: text-embedding-ada-002
-Response Body: {"detail":{"code":403,"message":"Authorization failed. Verify that the deploymentName, modelName are correct."}}
-Error adding documents to vs: Embedding API returned HTTP 403. See logs for details.
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\desktop\g\agent\vector_store.py", line 44, in add_documents_to_store
-    vs = FAISS.from_documents(documents, embeddings)
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_core\vectorstores\base.py", line 814, in from_documents
-    return cls.from_texts(texts, embedding, metadatas=metadatas, **kwargs)
-           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_community\vectorstores\faiss.py", line 1043, in from_texts
-    embeddings = embedding.embed_documents(texts)
-  File "C:\Users\jchowdha\desktop\g\agent\embedding_service.py", line 99, in embed_documents
-    return self._embed_batch(texts)
-           ~~~~~~~~~~~~~~~~~^^^^^^^
-  File "C:\Users\jchowdha\desktop\g\agent\embedding_service.py", line 62, in _embed_batch
-    raise RuntimeError(f"Embedding API returned HTTP {response.status_code}. See logs for details.")
-RuntimeError: Embedding API returned HTTP 403. See logs for details.
-[KB] Indexing failed: Failed to write vector store
-Traceback (most recent call last):
-  File "C:\Users\jchowdha\desktop\g\agent\knowledge_base_indexer.py", line 146, in ensure_knowledge_base_index
-    raise RuntimeError("Failed to write vector store")
-RuntimeError: Failed to write vector store
-INFO:     Application startup complete.
+For example, a chatbot can explain how to create a project plan, summarize documentation, or answer FAQs. However, it typically cannot independently execute tasks such as creating records in systems, orchestrating workflows, or making decisions across multiple steps without explicit instructions at each stage.
 
-========== REQUEST ==========
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/openai/deployments/gpt-5.4_2026-03-05/chat/completions?api-version=2025-01-01-preview
-HEADERS: {'Authorization': 'Bearer eyJra...<masked>', 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'ForgeAI/1.0', 'projectId': '3fccc5df-159d-47a0-b42d-4d1e49897153', 'X-Project-Id': '3fccc5df-159d-47a0-b42d-4d1e49897153'}
-PAYLOAD: {'model': 'gpt-5.4_2026-03-05', 'messages': [{'role': 'user', 'content': 'USER:\nYou are the Forge AI Help Bot.\n\nAnswer ONLY using the knowledge provided below.\n\nNever use outside knowledge.\n\nIf the answer is not available, explicitly say:\n"I couldn\'t find that information in the available documents."\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n351\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: Defects\nHeaders: Unnamed: 0 | Defect ID | Description | Owner | Status | Unnamed: 5 | Comments | Unnamed: 7\n\nRow 26: Unnamed: 0: 26 | Defect ID: DE1339550 | Description: NICE CA carveout pharmacy not flowing to downstream partners in production | Owner: Sandia Mitchell | Status: Closed | Unnamed: 5: Nice 2 CarveOut\nRow 27: Unnamed: 0: 27 | Defect ID: PGA4629 | Description: PGA for DE1339550: NICE CA carveout pharmacy not flowing to downstream partners in production | Status: In Progress | Unnamed: 5: Nice 2 CarveOut\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n340\n\nRow 2: Unnamed: 0: 1 | Defect ID: DE1221906 | Description: NICE Rel 2 || Benefit Bundle Match error | Status: Closed\nRow 3: Unnamed: 0: 2 | Defect ID: DE1218502 | Description: DSS - Rating Pop Group Creation Fails with Bundle Assembly || NICE R2 | Status: Closed\nRow 4: Unnamed: 0: 3 | Defect ID: DE1227811 | Description: Member not randomizing when member is enrolled via member entry and no provider is chosen and member requested is "yes" or "no" | Status: Closed\nRow 5: Unnamed: 0: 4 | Defect ID: DE1250128 | Description: Extract Data Missing in CloudBerry 1/13/2026 | Owner: Jawahar Soni | Status: Closed | Comments: Alla, Ramesh - (ramesh.alla@optum.com) is looking into it. Fixed 1/20/2026\nRow 6: Unnamed: 0: 5 | Defect ID: DE1251142 | Description: NICE Release 2 | Smart assignment failing for Signature Harmony - Triage needed | Owner: G Hari Prasad | Status: Closed\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n219\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: Metrics\nHeaders: PR3- 1/1/22 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n221\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: Metrics\nHeaders: PR3- 1/1/22 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n223\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: Metrics\nHeaders: PR3- 1/1/22 | Unnamed: 1 | Unnamed: 2 | Unnamed: 3 | Unnamed: 4 | Unnamed: 5 | Unnamed: 6 | Unnamed: 7 | Unnamed: 8 | Unnamed: 9 | Unnamed: 10 | Unnamed: 11 | Unnamed: 12 | Unnamed: 13\n--------------------\n\nQuestion:\nwhat are the metrices in NICE Rel 2'}], 'temperature': 0, 'max_completion_tokens': 2048}
-=============================
+🤖 **AI Agents**, on the other hand, represent a significant evolution. They are designed not just to respond, but to **reason, plan, make decisions, use external tools, and execute multi-step tasks** to achieve a defined goal. Instead of simply answering a question, an AI Agent can break down a complex request into smaller steps, determine what actions are required, select the appropriate tools or APIs, and carry out those actions autonomously.
 
+AI Agents often operate in a loop of:
 
-========== RESPONSE ==========
-STATUS: 200
-BODY: {"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"detected":false,"filtered":false},"protected_material_text":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"annotations":[],"content":"I couldn't find that information in the available documents.","refusal":null,"role":"assistant"}}],"created":1782463783,"id":"chatcmpl-DuwXnPIJGa70Du7tv8rDnKUrB1EUx","model":"gpt-5.4-2026-03-05","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"service_tier":"default","system_fingerprint":null,"usage":{"completion_tokens":14,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"latency_checkpoint":{"engine_tbt_ms":9,"engine_ttft_ms":107,"engine_ttlt_ms":229,"pre_inference_ms":64,"service_tbt_ms":9,"service_ttft_ms":261,"service_ttlt_ms":378,"total_duration_ms":323,"user_visible_ttft_ms":197},"prompt_tokens":961,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":975},"request_id":"1cdf76d2-31ed-4b66-8325-bf567e662adc"}
-==============================
+* Understanding the goal
+* Planning the next steps
+* Taking actions (e.g., calling APIs, querying databases, generating outputs)
+* Evaluating results
+* Iterating until the goal is achieved
 
-INFO:     127.0.0.1:64426 - "POST /llm HTTP/1.1" 200 OK
+This ability to combine reasoning with action is what makes AI Agents fundamentally different and far more powerful in enterprise environments.
 
-========== REQUEST ==========
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/openai/deployments/gpt-5.4_2026-03-05/chat/completions?api-version=2025-01-01-preview
-HEADERS: {'Authorization': 'Bearer eyJra...<masked>', 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'ForgeAI/1.0', 'projectId': '3fccc5df-159d-47a0-b42d-4d1e49897153', 'X-Project-Id': '3fccc5df-159d-47a0-b42d-4d1e49897153'}
-PAYLOAD: {'model': 'gpt-5.4_2026-03-05', 'messages': [{'role': 'user', 'content': 'USER:\nYou are the Forge AI Help Bot.\n\nAnswer ONLY using the knowledge provided below.\n\nNever use outside knowledge.\n\nIf the answer is not available, explicitly say:\n"I couldn\'t find that information in the available documents."\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n303\n\nRow 131: Domain Feature #: NICE | State: CA | S.NO# / TC#: TC132 | User Experience: View Authorization | Description/Expected Results: As an agent, I have the ability to viewe a prior authorization submitted for the member I am servicing | Actual Results: Same as expected | Pass/Fail: Pass\nRow 132: Domain Feature #: NICE | State: CA | Test Case Status: Designed | Description/Expected Results: ACET  BEO | Actual Results: Same as expected\nRow 133: Application/Component\nName: ACET BEO (Group Eligibility) | Domain Feature #: NICE | State: CA | S.NO# / TC#: TC135 | User Experience: ACET BEO (Group Eligibility) | Description/Expected Results: As a agent, we are able to view Group Contract option version and cross As a member in ACET | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n103\n\nRow 29: Domain Feature #: NICE | State: CA | S.NO# / TC#: TC31 | User Experience: View member listing | Description/Expected Results: As an agent, I am able to view members enrolled in a group in cirrus should also be displayed in ACET correctly | Actual Results: Same as expected | Pass/Fail: Pass\nRow 30: Application/Component\nName: ACET BEO (Group Eligibility) | Domain Feature #: NICE | State: CA | S.NO# / TC#: TC32 | User Experience: ACET BEO (Group Eligibility) | Description/Expected Results: As a agent, we are able to view Group Contract option version and cross As a member in ACET | Actual Results: Same as expected | Pass/Fail: Pass\nRow 31: Domain Feature #: NICE | State: CA | S.NO# / TC#: TC33 | User Experience: Group Plan | Description/Expected Results: As a agent, plans offered to a group including eff/exp dates from cirrus in ACET | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n286\n\nRow 106: Domain Feature #: NICE | State: CA | Test Case Status: Designed | Description/Expected Results: ACET BEO\nRow 107: Domain Feature #: NICE | State: CA | Test Case Status: Designed | S.NO# / TC#: TC107 | User Experience: Verify Group eligibility details | Description/Expected Results: As an agent, I have the ability to view Group Contract option version and cross validate in ACET | Actual Results: Same as expected | Pass/Fail: Pass\nRow 108: Domain Feature #: NICE | State: CA | Test Case Status: Designed | S.NO# / TC#: TC108 | User Experience: Verify Group plan details | Description/Expected Results: As an agent, I have the ability to verify plans offered to a group including eff/exp dates from cirrus in ACET | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nContacts Guide.xlsx\n\nChunk:\n10\n\nWorkbook: Contacts Guide.xlsx\nWorksheet: Point of Contacts\nHeaders: Case Installation | Unnamed: 1 | Unnamed: 2 | Unnamed: 3\n\nRow 41: Case Installation: ACET | Unnamed: 3: Adaboina, Sai Priyanka Reddy <sai_adaboina@optum.com>\nRow 42: Unnamed: 3: michael_j_ignacio@uhc.com\nRow 43: Unnamed: 3: ACET Nirvana Team <Polaris-ConstituentServices-ACETTeam3_DL@ds.uhc.com>\nRow 44: Case Installation: ACET BEO | Unnamed: 3: Padmaja Karri <padmaja_karri@optum.com\nRow 45: Case Installation: Spire  | Unnamed: 1: Product owner  | Unnamed: 3: Morin, Josee <jomorin@uhc.com>\nRow 46: Unnamed: 1: For Updated Password | Unnamed: 3: Siva Nagaraju, Chilakala\nRow 47: Unnamed: 1: For technical issues | Unnamed: 3: Pagote, Avish <apagote@optum.com>\nRow 48: Case Installation: Provider Portal | Unnamed: 2: Kotagiri,Praveen Kumar | Unnamed: 3: Kotagiri,Praveen Kumar <praveen_kotagiri@optum.com>\nRow 49: Unnamed: 2: Shamshuddin, Shaik | Unnamed: 3: Shamshuddin, Shaik <shamshuddin_shaik@optum.com>\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n288\n\nRow 109: Domain Feature #: NICE | State: CA | Test Case Status: Designed | S.NO# / TC#: TC109 | User Experience: Validate enrolled members | Description/Expected Results: As an agent, I am able to view members enrolled in a group in cirrus should also be displayed in ACET correctly\n | Actual Results: Same as expected | Pass/Fail: Pass\nRow 110: Domain Feature #: NICE | State: CA | Test Case Status: Designed | Description/Expected Results: ACET  Member\nRow 111: Application/Component\nName: ACET | Domain Feature #: NICE | State: CA | S.NO# / TC#: TC110 | User Experience: ACET Member Flow (DashBoard) | Description/Expected Results: As a agent we are able to view member details in ACET | Actual Results: Same as expected | Pass/Fail: Pass\nRow 112: Domain Feature #: NICE | State: CA | S.NO# / TC#: TC111 | Description/Expected Results: As a agent we are able to view - Benefit Information in ACET | Pass/Fail: Pass\n--------------------\n\nQuestion:\nwho is poc for acet beo'}], 'temperature': 0, 'max_completion_tokens': 2048}
-=============================
+### 🎯 Why is this important for Forge?
 
+As we continue to build intelligent capabilities within Forge, AI Agents open up new possibilities that go beyond traditional chatbot interactions:
 
-========== RESPONSE ==========
-STATUS: 200
-BODY: {"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"detected":false,"filtered":false},"protected_material_text":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"annotations":[],"content":"The POC for ACET BEO is **Padmaja Karri** — **padmaja_karri@optum.com**.","refusal":null,"role":"assistant"}}],"created":1782463799,"id":"chatcmpl-DuwY3fkgtiTH0NCPYMYK9JUfouOIq","model":"gpt-5.4-2026-03-05","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"service_tier":"default","system_fingerprint":null,"usage":{"completion_tokens":34,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"latency_checkpoint":{"engine_tbt_ms":9,"engine_ttft_ms":89,"engine_ttlt_ms":406,"pre_inference_ms":102,"service_tbt_ms":9,"service_ttft_ms":374,"service_ttlt_ms":682,"total_duration_ms":588,"user_visible_ttft_ms":272},"prompt_tokens":1367,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":1401},"request_id":"1d995a81-9bc7-421f-b396-505ea7b43533"}
-==============================
+✅ They can retrieve and synthesize information from multiple enterprise systems such as Aha, Rally, Smartsheet, and others, providing a unified and contextual response.
 
-INFO:     127.0.0.1:64443 - "POST /llm HTTP/1.1" 200 OK
+✅ They can dynamically decide which tool, API, or data source to use based on the user's intent, rather than relying on predefined flows.
 
-========== REQUEST ==========
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/openai/deployments/gpt-5.4_2026-03-05/chat/completions?api-version=2025-01-01-preview
-HEADERS: {'Authorization': 'Bearer eyJra...<masked>', 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'ForgeAI/1.0', 'projectId': '3fccc5df-159d-47a0-b42d-4d1e49897153', 'X-Project-Id': '3fccc5df-159d-47a0-b42d-4d1e49897153'}
-PAYLOAD: {'model': 'gpt-5.4_2026-03-05', 'messages': [{'role': 'user', 'content': 'USER:\nYou are the Forge AI Help Bot.\n\nAnswer ONLY using the knowledge provided below.\n\nNever use outside knowledge.\n\nIf the answer is not available, explicitly say:\n"I couldn\'t find that information in the available documents."\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n12\n\nRow 24: S.NO# / TC#: TC25 | User Experience: OBM Member | Description/Expected Results: Update mandatory field in Excel sheet (Employee SSN, Relationship Code, Medical Benefit Status Code, Last Name, First Name, SEX, Date of Birth, Address Type, Street Address, City, State, ZIP, Phone Type, Home_Phone, Hire Date, Employment Status Code, Employment Status Effective Date, Medical Coverage, Medical Benefit Bundle Option ID, Medical Bill Group ID, Benefit Status Code and Member Group ID) | Actual Results: Same as expected | Pass/Fail: Pass\nRow 25: S.NO# / TC#: TC26 | Description/Expected Results: Publish the excel sheet in USP member in OBM  | Actual Results: Same as expected | Pass/Fail: Pass\nRow 26: S.NO# / TC#: TC27 | User Experience: CIP | Description/Expected Results: Validate member enrollment file can be submitted with NICE membership  via (CIP > CMT > Cirrus) | Pass/Fail: Not Applicable\n--------------------\n\nQuestion:\nshow metrices sheet.'}], 'temperature': 0, 'max_completion_tokens': 2048}
-=============================
+✅ They can automate repetitive and time-consuming workflows, reducing manual effort and increasing efficiency across teams.
 
+✅ They can perform multi-step reasoning, enabling them to handle complex requests that require planning, sequencing, and decision-making.
 
-========== RESPONSE ==========
-STATUS: 200
-BODY: {"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"detected":false,"filtered":false},"protected_material_text":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"annotations":[],"content":"I couldn't find that information in the available documents.","refusal":null,"role":"assistant"}}],"created":1782463829,"id":"chatcmpl-DuwYXtN4AoYARqEEtVAhTow4SqYVb","model":"gpt-5.4-2026-03-05","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"service_tier":"default","system_fingerprint":null,"usage":{"completion_tokens":14,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"latency_checkpoint":{"engine_tbt_ms":7,"engine_ttft_ms":79,"engine_ttlt_ms":177,"pre_inference_ms":77,"service_tbt_ms":5,"service_ttft_ms":350,"service_ttlt_ms":400,"total_duration_ms":332,"user_visible_ttft_ms":273},"prompt_tokens":300,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":314},"request_id":"c42d929e-2b26-4a2b-a8af-1e71d5eb8426"}
-==============================
+✅ They enable the creation of intelligent assistants that can both **think and act**, bridging the gap between information retrieval and task execution.
 
-INFO:     127.0.0.1:64487 - "POST /llm HTTP/1.1" 200 OK
+✅ They can continuously improve outcomes by evaluating intermediate results and adjusting their approach, leading to more accurate and reliable outputs.
 
-========== REQUEST ==========
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/openai/deployments/gpt-5.4_2026-03-05/chat/completions?api-version=2025-01-01-preview
-HEADERS: {'Authorization': 'Bearer eyJra...<masked>', 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'ForgeAI/1.0', 'projectId': '3fccc5df-159d-47a0-b42d-4d1e49897153', 'X-Project-Id': '3fccc5df-159d-47a0-b42d-4d1e49897153'}
-PAYLOAD: {'model': 'gpt-5.4_2026-03-05', 'messages': [{'role': 'user', 'content': 'USER:\nYou are the Forge AI Help Bot.\n\nAnswer ONLY using the knowledge provided below.\n\nNever use outside knowledge.\n\nIf the answer is not available, explicitly say:\n"I couldn\'t find that information in the available documents."\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n173\n\nRow 23: Description/Expected Results: Direct Assign - Verify PCP assignment to staff Model PCP location | Actual Results: Same as expected | Pass/Fail: Pass | Tester Comments: 112021199540.0\nRow 24: Description/Expected Results: Direct Assign - CA Signature Value HMO member attempts to choose a Signature Value PCP, but lives in a Zip code outside the range of benefit plan service area allowance, then PCP is not assigned and system randomizes a new PCP | Actual Results: Same as expected | Pass/Fail: Pass\nRow 25: Description/Expected Results: Direct Assign - Verify if member selected PCP is out of Area and not assigned then assignment should fall to manual review\n\nMember lives in Fresno, CA, PCP is in Porterville, CA, more than 30 miles from the Members home address | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n171\n\nRow 18: S.NO# / TC#: TC17 | Description/Expected Results: Auto Assign - Verify Newborn member is assigned to mother\'s group upon enrollment | Actual Results: Same as expected | Pass/Fail: Pass | Tester Comments: 112022113253.0\nRow 19: S.NO# / TC#: TC18 | Description/Expected Results: Verify ID cards for Group/Org Assignment | Actual Results: Same as expected | Pass/Fail: Pass\nRow 20: S.NO# / TC#: TC19 | Description/Expected Results: Verify ID cards for individual pcp assignment | Actual Results: Same as expected | Pass/Fail: Pass\nRow 21: S.NO# / TC#: TC20 | Description/Expected Results: Direct Assign - Verify pcp assignment using member work address, which is outside from home address service area | Actual Results: Same as expected | Pass/Fail: Pass\nRow 22: S.NO# / TC#: TC21 | Description/Expected Results: Direct Assign - Verify pcp assignment using member home address | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n190\n\nMember is assigned to a PCP eff 01/01/2023-12/31/9999. Assign PCP Address Terms and User selects Randomization on 02/20/2024 | Actual Results: Same as expected | Pass/Fail: Pass\nRow 54: Description/Expected Results: Auto Assign - Verify member retro PCP assignment is valid per insuring rules | Actual Results: Same as expected | Pass/Fail: Pass\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n162\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: PCP Assignment\nHeaders: Application/Component\nName | E2E Featrure # (Test Execution) | Domain Feature # | State | Product | Test Case Status | Owner | S.NO# / TC# | Journey | User Experience | Description/Expected Results | Actual Results | Prod Need by Date | Pass/Fail | Executed By | Environment | Data | Rally Defect# | Tester Comments\n--------------------\n\n--------------------\nDocument:\nNICE Rel 2_E2E_Test Scripts (1).xlsx\n\nChunk:\n164\n\nWorkbook: NICE Rel 2_E2E_Test Scripts (1).xlsx\nWorksheet: PCP Assignment\nHeaders: Application/Component\nName | E2E Featrure # (Test Execution) | Domain Feature # | State | Product | Test Case Status | Owner | S.NO# / TC# | Journey | User Experience | Description/Expected Results | Actual Results | Prod Need by Date | Pass/Fail | Executed By | Environment | Data | Rally Defect# | Tester Comments\n--------------------\n\nQuestion:\nhow many pcp assignment test cases are passed'}], 'temperature': 0, 'max_completion_tokens': 2048}
-=============================
+### 💡 Simple Example
 
+👤 **User:** "Create a project plan for a new healthcare initiative."
 
-========== RESPONSE ==========
-STATUS: 200
-BODY: {"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"detected":false,"filtered":false},"protected_material_text":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"annotations":[],"content":"I found 10 PCP Assignment test cases marked as Pass in the available documents.","refusal":null,"role":"assistant"}}],"created":1782463858,"id":"chatcmpl-DuwZ0I4MBRMIuMpNidOFUfeAm8Lmv","model":"gpt-5.4-2026-03-05","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"service_tier":"default","system_fingerprint":null,"usage":{"completion_tokens":20,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"latency_checkpoint":{"engine_tbt_ms":12,"engine_ttft_ms":124,"engine_ttlt_ms":358,"pre_inference_ms":65,"service_tbt_ms":12,"service_ttft_ms":369,"service_ttlt_ms":597,"total_duration_ms":543,"user_visible_ttft_ms":305},"prompt_tokens":891,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":911},"request_id":"ca231c7a-569d-4f58-b580-2504ef5479a5"}
-==============================
+💬 **Traditional Chatbot:**
+Provides general guidance, best practices, or a sample project plan template that the user must manually adapt and implement.
 
-INFO:     127.0.0.1:64535 - "POST /llm HTTP/1.1" 200 OK
+🤖 **AI Agent:**
 
-========== REQUEST ==========
-URL: https://api.uhg.com/api/cloud/api-management/ai-gateway-reasoning/1.0/openai/deployments/gpt-5.4_2026-03-05/chat/completions?api-version=2025-01-01-preview
-HEADERS: {'Authorization': 'Bearer eyJra...<masked>', 'Content-Type': 'application/json', 'Accept': 'application/json', 'User-Agent': 'ForgeAI/1.0', 'projectId': '3fccc5df-159d-47a0-b42d-4d1e49897153', 'X-Project-Id': '3fccc5df-159d-47a0-b42d-4d1e49897153'}
-PAYLOAD: {'model': 'gpt-5.4_2026-03-05', 'messages': [{'role': 'user', 'content': 'USER:\nYou are the Forge AI Help Bot.\n\nAnswer ONLY using the knowledge provided below.\n\nNever use outside knowledge.\n\nIf the answer is not available, explicitly say:\n"I couldn\'t find that information in the available documents."\n\nI couldn\'t find relevant information in the available documents.\n\nQuestion:\ntell them'}], 'temperature': 0, 'max_completion_tokens': 2048}
-=============================
+* Understands the context of the request (healthcare initiative, project planning).
+* Retrieves relevant templates and historical project data.
+* Fetches necessary inputs from connected systems (e.g., timelines, resources, dependencies).
+* Generates milestones, deliverables, and timelines tailored to the initiative.
+* Creates the project plan in the appropriate tool (e.g., Smartsheet or Rally).
+* Updates related systems and notifies stakeholders if required.
 
+The key difference is simple but powerful:
 
-========== RESPONSE ==========
-STATUS: 200
-BODY: {"choices":[{"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"protected_material_code":{"detected":false,"filtered":false},"protected_material_text":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}},"finish_reason":"stop","index":0,"logprobs":null,"message":{"annotations":[],"content":"I couldn't find that information in the available documents.","refusal":null,"role":"assistant"}}],"created":1782463869,"id":"chatcmpl-DuwZBs3yv3vZDWc9YSnFUmlICXGp1","model":"gpt-5.4-2026-03-05","object":"chat.completion","prompt_filter_results":[{"prompt_index":0,"content_filter_results":{"hate":{"filtered":false,"severity":"safe"},"jailbreak":{"detected":false,"filtered":false},"self_harm":{"filtered":false,"severity":"safe"},"sexual":{"filtered":false,"severity":"safe"},"violence":{"filtered":false,"severity":"safe"}}}],"service_tier":"default","system_fingerprint":null,"usage":{"completion_tokens":14,"completion_tokens_details":{"accepted_prediction_tokens":0,"audio_tokens":0,"reasoning_tokens":0,"rejected_prediction_tokens":0},"latency_checkpoint":{"engine_tbt_ms":7,"engine_ttft_ms":91,"engine_ttlt_ms":189,"pre_inference_ms":98,"service_tbt_ms":7,"service_ttft_ms":435,"service_ttlt_ms":531,"total_duration_ms":441,"user_visible_ttft_ms":338},"prompt_tokens":63,"prompt_tokens_details":{"audio_tokens":0,"cached_tokens":0},"total_tokens":77},"request_id":"af6b7856-b3bf-49ec-aa5e-8dcd9a5dce21"}
-==============================
+**💬 Chatbot = Answers Questions**
+**🤖 AI Agent = Completes Tasks**
 
-INFO:     127.0.0.1:64542 - "POST /llm HTTP/1.1" 200 OK
+As we continue to evolve Forge, leveraging AI Agents will allow us to move from passive assistance to proactive, intelligent automation—unlocking significant productivity gains and enabling smarter decision-making across the organization.
+
+📅 **Next Week's Topic:** *Prompt Engineering – Writing Better Prompts for Better AI Responses.*
+
+Thank you! 🙌
