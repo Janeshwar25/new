@@ -2,3 +2,5 @@ python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=H
 
 
 python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2'); print('Loaded')"
+
+python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print(e.embed_query('hello')[:5])"
