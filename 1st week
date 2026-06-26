@@ -1,6 +1,211 @@
-python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print('OK')"
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
 
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
 
-python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2'); print('Loaded')"
-
-python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print(e.embed_query('hello')[:5])"
+PS C:\Users\jchowdha> cd desktop/g
+PS C:\Users\jchowdha\desktop\g> python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print('OK')"
+<string>:1: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+<string>:1: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/./modules.json
+Retrying in 1s [Retry 1/5].
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print('OK')
+                                                                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_core\_api\deprecation.py", line 274, in warn_if_direct_instance
+    return wrapped(self, *args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_community\embeddings\huggingface.py", line 92, in __init__
+    self.client = sentence_transformers.SentenceTransformer(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.model_name, cache_folder=self.cache_folder, **self.model_kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\decorators.py", line 41, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\sentence_transformer\model.py", line 188, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        model_name_or_path=model_name_or_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        default_prompt_name=default_prompt_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 216, in __init__
+    modules, self.module_kwargs = self._load_modules(
+                                  ~~~~~~~~~~~~~~~~~~^
+        model_name_or_path,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        config_kwargs=config_kwargs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 981, in _load_modules
+    modules_json_path = load_file_path(
+        model_name_or_path,
+    ...<4 lines>...
+        local_files_only=local_files_only,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\file_io.py", line 116, in load_file_path
+    return hf_hub_download(
+        model_name_or_path,
+    ...<6 lines>...
+        local_files_only=local_files_only,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1016, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+        # Destination
+    ...<15 lines>...
+        dry_run=dry_run,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1149, in _hf_hub_download_to_cache_dir
+    _get_metadata_or_catch_error(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        repo_id=repo_id,
+        ^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        retry_on_errors=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1691, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+        url=url,
+    ...<4 lines>...
+        retry_on_errors=retry_on_errors,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1613, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+        method="HEAD", url=url, headers=hf_headers, timeout=timeout, retry_on_errors=retry_on_errors
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 696, in _httpx_follow_relative_redirects_with_backoff
+    response = http_backoff(
+        method=method,
+    ...<3 lines>...
+        **no_retry_kwargs,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 570, in http_backoff
+    return next(
+        _http_backoff_base(
+    ...<9 lines>...
+        )
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 478, in _http_backoff_base
+    response = client.request(method=method, url=url, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 901, in send
+    raise RuntimeError("Cannot send a request, as the client has been closed.")
+RuntimeError: Cannot send a request, as the client has been closed.
+PS C:\Users\jchowdha\desktop\g> python -c "from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print(e.embed_query('hello')[:5])"
+<string>:1: DeprecationWarning: `langchain-community` is being sunset and is no longer actively maintained. See https://github.com/langchain-ai/langchain-community/issues/674 for details and migration guidance toward standalone integration packages.
+<string>:1: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
+'[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1081)' thrown while requesting HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/./modules.json
+Retrying in 1s [Retry 1/5].
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from langchain_community.embeddings import HuggingFaceEmbeddings; e=HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2'); print(e.embed_query('hello')[:5])
+                                                                        ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_core\_api\deprecation.py", line 274, in warn_if_direct_instance
+    return wrapped(self, *args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\langchain_community\embeddings\huggingface.py", line 92, in __init__
+    self.client = sentence_transformers.SentenceTransformer(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.model_name, cache_folder=self.cache_folder, **self.model_kwargs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\decorators.py", line 41, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\sentence_transformer\model.py", line 188, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        model_name_or_path=model_name_or_path,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<13 lines>...
+        default_prompt_name=default_prompt_name,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 216, in __init__
+    modules, self.module_kwargs = self._load_modules(
+                                  ~~~~~~~~~~~~~~~~~~^
+        model_name_or_path,
+        ^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        config_kwargs=config_kwargs,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\base\model.py", line 981, in _load_modules
+    modules_json_path = load_file_path(
+        model_name_or_path,
+    ...<4 lines>...
+        local_files_only=local_files_only,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\sentence_transformers\util\file_io.py", line 116, in load_file_path
+    return hf_hub_download(
+        model_name_or_path,
+    ...<6 lines>...
+        local_files_only=local_files_only,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1016, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+        # Destination
+    ...<15 lines>...
+        dry_run=dry_run,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1149, in _hf_hub_download_to_cache_dir
+    _get_metadata_or_catch_error(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        repo_id=repo_id,
+        ^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        retry_on_errors=True,
+        ^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1691, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+        url=url,
+    ...<4 lines>...
+        retry_on_errors=retry_on_errors,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\file_download.py", line 1613, in get_hf_file_metadata
+    response = _httpx_follow_relative_redirects_with_backoff(
+        method="HEAD", url=url, headers=hf_headers, timeout=timeout, retry_on_errors=retry_on_errors
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 696, in _httpx_follow_relative_redirects_with_backoff
+    response = http_backoff(
+        method=method,
+    ...<3 lines>...
+        **no_retry_kwargs,
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 570, in http_backoff
+    return next(
+        _http_backoff_base(
+    ...<9 lines>...
+        )
+    )
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\huggingface_hub\utils\_http.py", line 478, in _http_backoff_base
+    response = client.request(method=method, url=url, **kwargs)
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\jchowdha\AppData\Roaming\Python\Python314\site-packages\httpx\_client.py", line 901, in send
+    raise RuntimeError("Cannot send a request, as the client has been closed.")
+RuntimeError: Cannot send a request, as the client has been closed.
+PS C:\Users\jchowdha\desktop\g>                                                                                         
