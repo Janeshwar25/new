@@ -1,1 +1,1 @@
-Select-String -Path .\group_validator.py,.\member_validator.py -Pattern "get_conn(","q(","ALPHA_DBS","ERRQ_DB","ERRQ_HOST" -SimpleMatch -Context 1,2
+Select-String -Path .\member_validator.py -Pattern "def get_conn","ERRQ_HOST","ERRQ_DB","ALPHA_DBS","def q(","get_conn(db)" -SimpleMatch -Context 3,8
