@@ -1,1 +1,1 @@
-Select-String -Path .\member_validator.py -Pattern "get_conn|create_engine|DB_CONFIG|DATABASE|connection|gcloud" -Context 2,3
+python -c "import config; print('DB_PORT:', config.DB_PORT); print('DB_USER configured:', bool(config.DB_USER)); print('ALPHA_DBS keys:', list(config.ALPHA_DBS.keys()))"
