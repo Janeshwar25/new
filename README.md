@@ -1,1 +1,1 @@
-python -c "import sys; sys.path.insert(0, '..'); import config; print('DB_PORT:', config.DB_PORT); print('DB_USER configured:', bool(config.DB_USER)); print('ALPHA_DBS keys:', list(config.ALPHA_DBS.keys()))"
+Select-String -Path .\group_validator.py,.\member_validator.py -Pattern "get_conn\(|q\(|ALPHA_DBS|ERQQ_DB|ERQQ_HOST" -Context 1,2
