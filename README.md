@@ -1,2 +1,2 @@
 
-Select-String -Path .\member_validator.py -Pattern "read_excel|GroupID|sys.argv|input_file|BnE_Member"
+Select-String -Path .\member_validator.py -Pattern "INPUT_FILE|INPUT_EXCEL|EXCEL_FILE|ACCELQ_INPUT|read_excel|argparse|ArgumentParser" -Context 3,3
