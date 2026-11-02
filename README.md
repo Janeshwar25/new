@@ -1,1 +1,1 @@
-if ($env:MAVEN_USER) {"MAVEN_USER is set"} else {"MAVEN_USER is missing"}
+if ($env:MAVEN_PASSWORD) {"MAVEN_PASSWORD is set"} else {"MAVEN_PASSWORD is missing"}
