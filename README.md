@@ -1,127 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-Licensed to the Apache Software Foundation (ASF) under one
-or more contributor license agreements.  See the NOTICE file
-distributed with this work for additional information
-regarding copyright ownership.  The ASF licenses this file
-to you under the Apache License, Version 2.0 (the
-"License"); you may not use this file except in compliance
-with the License.  You may obtain a copy of the License at
+Wedding Invitation | Janeshwar & Gayatri 💍
 
-    http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
--->
+Hi Everyone,
 
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+I’m happy to share some wonderful news with you all!
 
-    <localRepository>${user.home}/.m2/repo1/m3-3.6.3</localRepository>
+I’m getting married to Gayatri Chowdhary, and as I step into this beautiful new chapter of life, I would love to share the celebrations with all of you.
 
-    <mirrors>
-        <mirror>
-            <id>artifactory</id>
-            <name>Artifactory Maven Virtual</name>
-            <url>https://edgeinternal1uhg.optum.com/artifactory/glb-maven-vir</url>
-            <mirrorOf>*,!optum-np-releases</mirrorOf>
-        </mirror>
-    </mirrors>
+The wedding celebrations will take place in Purnia, Bihar, on 7th December 2026, followed by our reception in Chittaranjan, West Bengal, on 9th December 2026.
 
-    <servers>
-        <server>
-            <id>artifactory</id>
-            <username>${env.MAVEN_USER}</username>
-            <password>${env.MAVEN_PASSWORD}</password>
-        </server>
-        <server>
-            <id>optum-np-releases</id>
-            <username>${env.MAVEN_USER}</username>
-            <password>${env.MAVEN_PASSWORD}</password>
-        </server>
-    </servers>
+Here are the celebration details:
 
-    <profiles>
-        <profile>
-            <id>artifactory</id>
-            <repositories>
-                <repository>
-                    <id>central</id>
-                    <name>Maven Releases</name>
-                    <url>https://edgeinternal1uhg.optum.com/artifactory/glb-maven-vir</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>snapshots</id>
-                    <name>Maven Snapshots</name>
-                    <url>https://edgeinternal1uhg.optum.com/artifactory/glb-maven-vir</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </snapshots>
-                </repository>
-                <repository>
-                    <id>optum-np-releases</id>
-                    <name>Optum DSS NP Releases</name>
-                    <url>https://edgeinternal1uhg.optum.com:443/artifactory/dataselfservice-maven-np-releases-loc/</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>central</id>
-                    <name>Maven Plugin Releases</name>
-                    <url>https://edgeinternal1uhg.optum.com/artifactory/glb-maven-vir</url>
-                    <releases>
-                        <enabled>true</enabled>
-                        <updatePolicy>never</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </releases>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                </pluginRepository>
-                <pluginRepository>
-                    <id>snapshots</id>
-                    <name>Maven Plugin Snapshots</name>
-                    <url>https://edgeinternal1uhg.optum.com/artifactory/glb-maven-vir</url>
-                    <releases>
-                        <enabled>false</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                        <updatePolicy>always</updatePolicy>
-                        <checksumPolicy>warn</checksumPolicy>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-        </profile>
-    </profiles>
-    <activeProfiles>
-        <activeProfile>artifactory</activeProfile>
-    </activeProfiles>
-</settings>
+Wedding
+📅 7th December 2026
+📍 Lila Garden, Maranga Bypass, Maranga Highway Road, Opposite Wisdom Public School, Purnia, Bihar – 854301.
+
+Reception
+📅 9th December 2026
+🕖 7:00 PM onwards
+📍 Chittaranjan Officers' Club, Chittaranjan, West Bengal.
+
+I would be truly delighted if you could join us in celebrating this special milestone in our lives. Whether near or far, I'd love to have each one of you be a part of our happiness. Please know that this invitation comes with lots of warmth and is extended to everyone on the team!
+
+And of course, celebrations are incomplete without sweets! 😄 There's some mithai waiting for you all on my desk, so please do drop by, grab a sweet (or two!), and let me share a little pre-wedding happiness with you. ❤️
+
+Your presence, blessings and good wishes would mean a lot to Gayatri and me.
+
+Looking forward to sharing this happiness with all of you!
+
+Warm regards,
+Janeshwar Chowdhary
